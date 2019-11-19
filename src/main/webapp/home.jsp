@@ -20,7 +20,7 @@
         <h1>Products</h1>
 
         <div class="row">
-            <div class="col-xs-12 col-md-4 h-50">
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg">
                 <div class="img-box">
                     <img src="imgs/p1.JPG" class="prd-img-lg">
                     <div class="brd img-box-p r-btm-5 shw-hdn">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4 h-50">
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg">
                 <div class="img-box">
                     <img src="imgs/p2.JPG" class="prd-img-lg">
                     <div class="brd img-box-p r-btm-5 shw-hdn">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4 h-50">
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg">
                 <div class="img-box">
                     <img src="imgs/p3.JPG" class="prd-img-lg">
                     <div class="brd img-box-p r-btm-5 shw-hdn">
@@ -65,18 +65,18 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p4.JPG" class="prd-img-lg"></div>
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p5.JPG" class="prd-img-lg"></div>
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p6.JPG" class="prd-img-lg"></div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p7.JPG" class="prd-img-lg"></div>
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p8.JPG" class="prd-img-lg"></div>
-            <div class="col-xs-12 col-md-4 h-50"> <img src="imgs/p9.JPG" class="prd-img-lg"></div>
+
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p4.JPG" class="prd-img-lg"></div>
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p5.JPG" class="prd-img-lg"></div>
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p6.JPG" class="prd-img-lg"></div>
+
+
+
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p7.JPG" class="prd-img-lg"></div>
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p8.JPG" class="prd-img-lg"></div>
+            <div class="col-xs-12 col-md-4 h-50 product-box-lg"> <img src="imgs/p9.JPG" class="prd-img-lg"></div>
         </div>
 
     </div>

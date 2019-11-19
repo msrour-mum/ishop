@@ -1,3 +1,5 @@
+
+
 footer {
     background-color: #2C3E50 !important;
     height: 200px;
@@ -68,6 +70,12 @@ footer .cpy {
     font-size: 11px;
 }
 
+.product-box-lg
+{
+    margin-top:5px;
+    min-height: 255px;
+    max-height: 255px;
+}
 .prd-img-lg {
     max-width: 100%;
     max-height: 100%;
