@@ -237,20 +237,23 @@ public class DataAccessManager {
         return true;
     }
 
-    public UserData User_Login(String username, String pass) {
-        UserData user =null ;
+
+
+    public User User_Login(String email) {
+        User user =null ;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where Email=? Password=?");
-            pstmt.setString(1, username);
-            pstmt.setString(2, pass);
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where Email=?");
+            pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
-                user.setUserId( rs.getInt("Id"));
+                user=new User();
+                user.setId( rs.getInt("Id"));
                 user.setUserName(rs.getString("User_Name"));
-                user.setEmial(rs.getString("Email"));
+                user.setEmail(rs.getString("Email"));
                 user.setAddress(rs.getString("Address"));
                 user.setAdmin(rs.getBoolean("IsAdmin"));
+                user.setPassword(rs.getString("Password"));
                 return  user;
             }
         } catch (SQLException e) {
