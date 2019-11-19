@@ -34,9 +34,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String username=req.getParameter("inputEmail");
+        String inputEmail=req.getParameter("inputEmail");
         String pass=req.getParameter("inputPassword");
-        UserData user=UsersService.login(username,pass);
+        UserData user=UsersService.login(inputEmail,pass);
         if (user!=null) {
             req.getSession().setAttribute("user",user);
             resp.sendRedirect("/home");

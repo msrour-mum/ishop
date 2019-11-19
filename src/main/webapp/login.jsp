@@ -65,15 +65,11 @@
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <%=request.getAttribute("errMsg")%>
-        <%=request.getAttribute("isError")%>
-        <c:out value="${errMsg}"></c:out>
-        asasasasa
         <c:if test="${isError == true}">
             <div>
-                <p>
+                <p style="color: red">
                        <c:out value="${errMsg}"></c:out>
-errrrrrrrrrr
+
                 </p>
             </div>
         </c:if>

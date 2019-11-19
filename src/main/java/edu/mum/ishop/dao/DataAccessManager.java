@@ -241,7 +241,7 @@ public class DataAccessManager {
         UserData user =null ;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where User_Name=? Password=?");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where Email=? Password=?");
             pstmt.setString(1, username);
             pstmt.setString(2, pass);
             ResultSet rs = pstmt.executeQuery();
