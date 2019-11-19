@@ -6,6 +6,26 @@ public class UserData {
 
     private int userId;
     private String userName;
+
+    public String getEmial() {
+        return emial;
+    }
+
+    public void setEmial(String emial) {
+        this.emial = emial;
+    }
+
+    private String emial;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
     private Date loginTime;
     private boolean isAdmin;
 

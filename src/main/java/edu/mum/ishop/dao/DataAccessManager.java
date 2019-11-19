@@ -3,6 +3,7 @@ import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.model.Product;
 import edu.mum.ishop.model.User;
+import edu.mum.ishop.modelView.UserData;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,8 +26,8 @@ public class DataAccessManager {
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:comp/env");
-            this.dataSource = (DataSource) envContext.lookup("jdbc/cs472-201911-lesson15-contacts-db");
-            dbName ="ishope-db";
+            this.dataSource = (DataSource) envContext.lookup("jdbc/ishop-db");
+            dbName ="ishop-db";
         } catch (NamingException e) {
             System.err.println(e);
         }
@@ -222,11 +223,11 @@ public class DataAccessManager {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`user` ( `User_Name`, `Email`, `Address`, `Password`, `IsAdmin`) VALUES ( ?, ?, ?, ?, ?)");
             //pstmt.setInt(1, order.getId());
-            pstmt.setInt(1, order.getId());
-            pstmt.setString(2, order.getUserName());
-            pstmt.setString(3, order.getEmail());
-            pstmt.setString(4, order.getAddress());
-            pstmt.setString(5, order.getPassword());
+            //pstmt.setInt(1, order.getId());
+            pstmt.setString(1, order.getUserName());
+            pstmt.setString(2, order.getEmail());
+            pstmt.setString(3, order.getAddress());
+            pstmt.setString(4, order.getPassword());
             pstmt.setBoolean(5, order.isAdmin());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -234,5 +235,27 @@ public class DataAccessManager {
             return false;
         }
         return true;
+    }
+
+    public UserData User_Login(String username, String pass) {
+        UserData user =null ;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where User_Name=? Password=?");
+            pstmt.setString(1, username);
+            pstmt.setString(2, pass);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                user.setUserId( rs.getInt("Id"));
+                user.setUserName(rs.getString("User_Name"));
+                user.setEmial(rs.getString("Email"));
+                user.setAddress(rs.getString("Address"));
+                user.setAdmin(rs.getBoolean("IsAdmin"));
+                return  user;
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return null;
     }
 }
