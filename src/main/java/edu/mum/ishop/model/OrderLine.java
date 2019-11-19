@@ -17,6 +17,14 @@ public class OrderLine {
         Quantity = quantity;
         Subtotal = subtotal;
     }
+    public OrderLine(int id, int orderId, int productId, float unitPrice, int quantity) {
+        this.id = id;
+        this.orderId = orderId;
+        this.productId = productId;
+        this.unitPrice = unitPrice;
+        Quantity = quantity;
+        Subtotal = unitPrice * Quantity;
+    }
 
     public int getId() {
         return id;

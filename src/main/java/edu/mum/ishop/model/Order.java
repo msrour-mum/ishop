@@ -21,6 +21,10 @@ public class Order {
     {
         List<OrderLine> orderLines = new ArrayList<>();
     }
+    public Order(int userId)
+    {
+        this.userId = userId;
+    }
     public Order(int id, int userId, Date orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
         this.id = id;
         this.userId = userId;

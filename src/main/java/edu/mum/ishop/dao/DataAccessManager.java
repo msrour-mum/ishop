@@ -121,7 +121,7 @@ public class DataAccessManager {
                 int quantity= rs.getInt("Quantity");
                 float subtotal= rs.getFloat("Subtotal");
 
-                OrderLine data = new OrderLine(id,orderId,productId,unitPrice,quantity,subtotal);
+                OrderLine data = new OrderLine(id,orderId,productId,unitPrice,quantity, subtotal);
                 list.add(data);
             }
         } catch (SQLException e) {
