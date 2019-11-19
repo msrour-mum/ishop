@@ -1,7 +1,9 @@
 package edu.mum.ishop.services;
 
+import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
+import edu.mum.ishop.modelView.UserData;
 
 import java.util.Optional;
 
@@ -28,8 +30,10 @@ public class OrdersService {
             orderToAddOrEdit.get().setQuantity(orderLine.getQuantity());
         }
     }
-    public boolean Checkout(Order order)
+    public boolean Checkout(Order order, UserData userData)
     {
+       order.setCheckout(true);
+       //UsersDAO.Save(order);
         return true;
     }
 }

@@ -65,7 +65,7 @@ public class CartServlet extends HttpServlet {
                 Integer.parseInt(req.getParameter("orderId")),
                 Integer.parseInt(req.getParameter("productId")),
                 Float.parseFloat(req.getParameter("unitPrice")),
-                Integer.parseInt(req.getParameter("Quantity")));
+                Integer.parseInt(req.getParameter("quantity")));
 
         ordersService.addOrderLine(order, orderLine);
         req.getSession().setAttribute("cart", order);
