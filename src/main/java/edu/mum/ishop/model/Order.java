@@ -1,6 +1,8 @@
 package edu.mum.ishop.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -11,8 +13,14 @@ public class Order {
     private float shipping;
     private float subtotal;
     private float total;
-    private boolean IsCheckout;
+    private boolean isCheckout;
 
+    private List<OrderLine> orderLines;
+
+    public Order()
+    {
+        List<OrderLine> orderLines = new ArrayList<>();
+    }
     public Order(int id, int userId, Date orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
         this.id = id;
         this.userId = userId;
@@ -21,7 +29,8 @@ public class Order {
         this.shipping = shipping;
         this.subtotal = subtotal;
         this.total = total;
-        IsCheckout = isCheckout;
+        this.isCheckout = isCheckout;
+        this.orderLines = new ArrayList<>();
     }
 
     public int getId() {
@@ -81,10 +90,18 @@ public class Order {
     }
 
     public boolean isCheckout() {
-        return IsCheckout;
+        return isCheckout;
     }
 
     public void setCheckout(boolean checkout) {
-        IsCheckout = checkout;
+        isCheckout = checkout;
+    }
+
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
     }
 }
