@@ -2,6 +2,7 @@ package edu.mum.ishop.dao;
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.model.Product;
+import edu.mum.ishop.model.User;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -71,11 +72,32 @@ public class DataAccessManager {
             pstmt.setBoolean(7, order.isCheckout());
             pstmt.executeUpdate();
 
+
+            int orderId =0;
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+
+                    orderId=generatedKeys.getInt(1);
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+
             List<OrderLine> lines = order.getOrderLines();
             for (int i = 0; i < lines.size() ; i++) {
-                OrderLine line =lines[i];
-                
+                OrderLine line = lines.get(i);
+                PreparedStatement p = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)");
+                //pstmt.setInt(1, order.getId());
+                p.setInt(1, orderId);
+                p.setInt(2, line.getProductId());
+                p.setFloat(3, line.getUnitPrice());
+                p.setFloat(4, line.getQuantity());
+                p.setFloat(5, line.getSubtotal());
+                p.executeUpdate();
             }
+            connection.commit();
+            connection.setAutoCommit(false);
 
 
         } catch (SQLException e) {
@@ -148,7 +170,7 @@ public class DataAccessManager {
         }
         return list;
     }
-    public boolean Product_Add(Product order) {
+   /* public boolean Product_Add(Product order) {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`product` ( `Product_Name`, `Description`, `Seller`, `Price`, `IsActive`, `Image_Url`) VALUES ( '?', '?', '?', ?, ?, '?');");
@@ -169,6 +191,48 @@ public class DataAccessManager {
         }
         return true;
     }
+*/
 
 
+
+    public List<User> User_SelectAll() {
+        List<User> list = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User order by id");
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int id= rs.getInt("Id");
+                String userName= rs.getString("User_Name");
+                String  email= rs.getString("Email");
+                String address= rs.getString("Address");
+                String password= rs.getString("Password");
+                boolean isAdmin= rs.getBoolean("IsAdmin");
+
+                User data = new User(id,userName,email,address,password,isAdmin);
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return list;
+    }
+    public boolean User_Add(User order) {
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`user` ( `User_Name`, `Email`, `Address`, `Password`, `IsAdmin`) VALUES ( ?, ?, ?, ?, ?)");
+            //pstmt.setInt(1, order.getId());
+            pstmt.setInt(1, order.getId());
+            pstmt.setString(2, order.getUserName());
+            pstmt.setString(3, order.getEmail());
+            pstmt.setString(4, order.getAddress());
+            pstmt.setString(5, order.getPassword());
+            pstmt.setBoolean(5, order.isAdmin());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        }
+        return true;
+    }
 }
