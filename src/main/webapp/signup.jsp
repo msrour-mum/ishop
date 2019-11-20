@@ -16,6 +16,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IShop - SignUp</title>
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
+    <link href="css/all.css" type="text/css" rel="stylesheet"/>
+    <link href="css/fontawesome.css" type="text/css" rel="stylesheet"/>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
     <script src="js/app.js"></script>
 </head>
 <body>

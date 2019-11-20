@@ -60,7 +60,7 @@ public class Signup  extends HttpServlet {
         u.setPassword(generatedSecuredPasswordHash);
         if (UsersService.AddUser(u)) {
             //req.getRequestDispatcher("/home").forward(req, resp);
-            resp.sendRedirect("/home");
+            resp.sendRedirect("/login");
         }
         else
         {

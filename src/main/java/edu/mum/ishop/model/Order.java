@@ -16,7 +16,7 @@ public class Order {
     private boolean isCheckout;
 
     private List<OrderLine> orderLines;
-
+    private int orderSize;
     public Order()
     {
         this.orderLines = new ArrayList<>();
@@ -29,6 +29,7 @@ public class Order {
         this.shipping = 1.25F;
         this.tax = 2.25F;
         this.orderLines = new ArrayList<>();
+
     }
     public Order(int id, int userId, LocalDate orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
         this.id = id;
@@ -42,6 +43,13 @@ public class Order {
         this.orderLines = new ArrayList<>();
     }
 
+    public int getOrderSize()
+    {
+        if (orderLines==null)
+            return 0;
+        else
+            return orderLines.size();
+    }
     public int getId() {
         return id;
     }

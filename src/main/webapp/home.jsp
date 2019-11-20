@@ -19,7 +19,7 @@
 
 <section>
     <div class="container">
-
+        <div class="row">
         <h1>Products</h1>
         <div class="row">
             <c:forEach var="product" items="${products}">
@@ -46,7 +46,7 @@
                 </div>
             </c:forEach>
         </div>
-
+        </div>
     </div>
 </section>
 <%@ include file="footer.jsp" %>

@@ -47,8 +47,11 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
         <span class="price" style="font-size:24px;color:yellow;margin-left: 1em;">
-       <a href="/cart">     <i class="fa fa-shopping-cart"></i>
-            <b>4</b>
+            <a href="/cart">     <i class="fa fa-shopping-cart"></i>
+
+             <c:if test="${cart!=null}">
+                <b>${cart.orderSize}</b>
+             </c:if>
            </a>
         </span>
     </div>

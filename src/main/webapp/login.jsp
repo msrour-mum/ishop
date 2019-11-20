@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,7 @@
             top: 3em;
             width: 50%;
             margin: auto ;
-            padding: 0px 7em;
+            padding: 5px 7em;
             border: 2px solid gray;
             border-radius: 5%;
         }
@@ -69,10 +69,18 @@
                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
 
                 <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+                    <div>
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <div>
+                        <span > <a href="/signup">signup</a></span>
+                    </div>
+
                 </div>
+
+
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 <c:if test="${isError == true}">
                     <div>
@@ -84,11 +92,14 @@
                 </c:if>
 
 
-                <p class="mt-5 mb-3 text-muted">&copy; WAP 2019</p>
             </form>
 
-
+        </div>
+    </div>
 </section>
+<br>
+<br>
+<br>
 <%@ include file="footer.jsp"%>
 </body>
 </html>
