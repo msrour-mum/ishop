@@ -1,39 +1,25 @@
 package edu.mum.ishop.modelView;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class UserData {
 
     private int userId;
     private String userName;
-
-    public String getEmial() {
-        return emial;
-    }
-
-    public void setEmial(String emial) {
-        this.emial = emial;
-    }
-
-    private String emial;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    private String email;
     private String address;
-    private Date loginTime;
     private boolean isAdmin;
+    private LocalDateTime loginTime;
 
-    public UserData(int userId, String userName, Date loginTime, boolean isAdmin) {
+    public UserData(int userId, String userName, String email, String address, boolean isAdmin, LocalDateTime loginTime) {
         this.userId = userId;
         this.userName = userName;
-        this.loginTime = loginTime;
+        this.email = email;
+        this.address = address;
         this.isAdmin = isAdmin;
+
+        this.loginTime  = loginTime;
     }
 
     public int getUserId() {
@@ -52,11 +38,19 @@ public class UserData {
         this.userName = userName;
     }
 
-    public Date getLoginTime() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 
@@ -66,5 +60,13 @@ public class UserData {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -5,6 +5,8 @@ import edu.mum.ishop.model.User;
 import edu.mum.ishop.modelView.UserData;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.time.LocalDateTime;
+
 public class UsersService {
 
     public boolean AddUser(User usr)
@@ -13,10 +15,19 @@ public class UsersService {
         return da.User_Add(usr);
     }
 
-    public UserData login (String username, String pass)
+    public UserData login(String email, String pass)
     {
         DataAccessManager da=new DataAccessManager();
-        String encPass = BCrypt.hashpw(pass, BCrypt.gensalt(12));
-        return da.User_Login(username,encPass);
+        User user=  da.User_Login(email);
+        if (user==null)
+            return  null;
+
+       if (BCrypt.checkpw(pass , user.getPassword()))
+       {
+           UserData userData=new UserData(user.getId(),user.getUserName(),user.getEmail(),user.getAddress(),user.isAdmin(), LocalDateTime.now());
+           return userData;
+       }
+       return null;
+
     }
 }
