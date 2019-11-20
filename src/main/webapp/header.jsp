@@ -23,5 +23,9 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <span class="price" style="font-size:24px;color:yellow;margin-left: 1em;">
+            <i class="fa fa-shopping-cart"></i>
+            <b>4</b>
+        </span>
     </div>
 </nav>
