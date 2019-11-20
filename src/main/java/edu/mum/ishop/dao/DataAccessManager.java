@@ -80,7 +80,8 @@ public class DataAccessManager {
 
         Connection connection=null;
         PreparedStatement pstmt=null;
-        ResultSet rs=null;
+        //ResultSet rs=null;
+        //ResultSet generatedKeys=null;
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
@@ -105,6 +106,8 @@ public class DataAccessManager {
                 else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }
+                if(generatedKeys!=null)
+                    generatedKeys.close();
             }
 
             List<OrderLine> lines = order.getOrderLines();
@@ -130,8 +133,8 @@ public class DataAccessManager {
         finally {
             try
             {
-                if (rs!=null)
-                    rs.close();
+//                if (rs!=null)
+//                    rs.close();
                 if (connection!=null)
                     connection.close();
                 if (pstmt!=null)
