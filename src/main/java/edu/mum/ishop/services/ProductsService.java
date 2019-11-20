@@ -20,7 +20,7 @@ public class ProductsService {
     {
         List<Product> products;
 
-        if(search != "")
+        if(search != null && !search.equals(""))
         {
             products = searchProducts(search);
         }
@@ -44,7 +44,7 @@ public class ProductsService {
 
     public List<Product> searchProducts(String search)
     {
-        List<Product> products = dataAccess.Product_SelectAll();
+        List<Product> products = dataAccess.Product_Search(search);
         return products;
     }
 }

@@ -16,7 +16,7 @@
 <%@ include file="header.jsp" %>
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-3">Thank you ${userData.userName}, your order has been successfully done!</h1>
+        <h2>Thank you ${userData.userName}, your order has been successfully done!</h1>
         <p class="lead">There are many products with good sellers in our web site, continue shopping and calling extra attention to featured content or information.</p>
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>

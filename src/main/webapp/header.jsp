@@ -42,8 +42,8 @@
 
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <form class="form-inline my-2 my-lg-0" action="/home" method="get">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
         <span class="price" style="font-size:24px;color:yellow;margin-left: 1em;">
