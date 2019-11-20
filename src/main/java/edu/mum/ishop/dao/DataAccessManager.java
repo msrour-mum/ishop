@@ -3,6 +3,7 @@ import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.model.Product;
 import edu.mum.ishop.model.User;
+import edu.mum.ishop.modelView.OrderView;
 import edu.mum.ishop.modelView.UserData;
 
 import java.sql.*;
@@ -141,6 +142,56 @@ public class DataAccessManager {
             }
         }
         return true;
+    }
+
+    public List<OrderView> OrderView_SelectAll() {
+        List<OrderView> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        try {
+            connection = dataSource.getConnection();
+            String sql="SELECT `order`.`Id`,     `order`.`User_Id`,     `order`.`Order_Date`,     `order`.`Tax`,     `order`.`Shipping`,     `order`.`Subtotal`,     `order`.`Total`,     `order`.`IsCheckout` ,     `ishop-db`.`user`.User_Name,     `ishop-db`.`user`.Address,     `ishop-db`.`user`.Email FROM `ishop-db`.`order` inner join `ishop-db`.`user` on   `ishop-db`.`order`.`User_Id` = `ishop-db`.`user`.Id";
+            sql=sql.replace("ishop-db",dbName);
+
+            pstmt = connection.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int id= rs.getInt("Id");
+                int userId= rs.getInt("User_Id");
+                Date  orderDate= rs.getDate("Order_Date");
+                float tax= rs.getFloat("Tax");
+                float shipping= rs.getFloat("Shipping");
+                float subtotal= rs.getFloat("Subtotal");
+                float total= rs.getFloat("Total");
+                boolean IsCheckout= rs.getBoolean("IsCheckout");
+
+                String userName= rs.getString("User_Name");
+                String address= rs.getString("User_Name");
+                String email= rs.getString("Email");
+
+                OrderView data = new OrderView(id,userId,orderDate,tax,shipping,subtotal,total,IsCheckout,userName,address,email);
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        return list;
     }
 
     public List<OrderLine> OrderLine_SelectAll() {

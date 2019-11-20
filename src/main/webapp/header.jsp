@@ -10,10 +10,10 @@
                 <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
+                <a class="nav-link" href="products">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Orders</a>
+                <a class="nav-link" href="orders">Orders</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -24,8 +24,9 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
         <span class="price" style="font-size:24px;color:yellow;margin-left: 1em;">
-            <i class="fa fa-shopping-cart"></i>
+       <a href="/cart">     <i class="fa fa-shopping-cart"></i>
             <b>4</b>
+           </a>
         </span>
     </div>
 </nav>
