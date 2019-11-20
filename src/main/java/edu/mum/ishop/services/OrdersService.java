@@ -1,19 +1,26 @@
 package edu.mum.ishop.services;
 
+import edu.mum.ishop.dao.DataAccessManager;
 import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.model.Product;
 import edu.mum.ishop.modelView.UserData;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 public class OrdersService {
 
     private ProductsService productsService;
+    private DataAccessManager dataAccess;
+
     public OrdersService()
     {
         productsService = new ProductsService();
+        this.dataAccess = new DataAccessManager();
     }
 
     public Order createOrder(int userId)
@@ -56,10 +63,11 @@ public class OrdersService {
         float total = subTotal + order.getShipping() + order.getTax();
         order.setTotal(total);
     }
-    public boolean Checkout(Order order, UserData userData)
+    public boolean checkout(Order order, int userId)
     {
+        order.setUserId(userId);
        order.setCheckout(true);
-       //UsersDAO.Save(order);
-        return true;
+       order.setOrderDate(LocalDate.now());
+       return dataAccess.Order_Add(order);
     }
 }

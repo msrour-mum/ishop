@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,32 +23,25 @@
         <div><i>Fill your billing address, credit card information to process checking out</i></div>
         <div class="sum-item subTotal row">
             <div class="col-9 lbl">Sub Total</div>
-            <div class="col-3">1000$</div>
+            <div class="col-3">${cart.subtotal}$</div>
         </div>
         <div class="sum-item tax row">
             <div class="col-9 lbl">Tax</div>
-            <div class="col-3">1000$</div>
+            <div class="col-3">${cart.tax}$</div>
         </div>
         <div class="sum-item shipping row">
             <div class="col-9 lbl">Shipping</div>
-            <div class="col-3">1000$</div>
+            <div class="col-3">${cart.shipping}$</div>
         </div>
         <hr>
         <div class="sum-item total row">
             <div class="col-9 lbl">TOTAL</div>
-            <div class="col-3">1000$</div>
+            <div class="col-3">${cart.total}$</div>
         </div>
 
-        <form>
+        <form method="post" action="/checkout">
             <fieldset>
                 <legend>Checkout form</legend>
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                           placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
-                </div>
 
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -58,13 +51,18 @@
                 <div class="form-group">
                     <label for="name">Credit Card Number</label>
                     <input type="text" class="form-control" id="creditCardId" required
-                     pattern="\d{4}-\d{4}-\d{4}-\d{4}"/>
+                           pattern="\d{4}-\d{4}-\d{4}-\d{4}"
+                           placeholder="xxxx-xxxx-xxxx-xxxx"
+                           title="Invalid credit card number, it should be matched with this format: xxxx-xxxx-xxxx-xxxx"/>
                 </div>
 
                 <div class="form-group">
                     <label for="name">Phone Number</label>
                     <input type="text" class="form-control" id="phoneNumber"
-                           pattern="+1 \(\d{3}\)-\d{3}-\d{4}-"/>
+                           pattern="+1 \(\d{3}\)-\d{3}-\d{4}-"
+                           placeholder="+1 (xxx)-xxx-xxxx"
+                           title="Invalid phone number, it should be matched with this format: +1 (xxx)-xxx-xxxx"
+                    />
                 </div>
 
                 <div class="form-group">

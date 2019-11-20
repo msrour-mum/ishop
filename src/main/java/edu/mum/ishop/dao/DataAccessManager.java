@@ -5,11 +5,8 @@ import edu.mum.ishop.model.Product;
 import edu.mum.ishop.model.User;
 import edu.mum.ishop.modelView.UserData;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +44,7 @@ public class DataAccessManager {
             while(rs.next()) {
                 int id= rs.getInt("Id");
                 int userId= rs.getInt("userId");
-                Date  orderDate= rs.getDate("Order_Date");
+                LocalDate orderDate= rs.getDate("Order_Date").toLocalDate();
                 float tax= rs.getFloat("Tax");
                 float shipping= rs.getFloat("Shipping");
                 float subtotal= rs.getFloat("Subtotal");
@@ -88,7 +85,7 @@ public class DataAccessManager {
             pstmt = connection.prepareStatement(" INSERT INTO `"+dbName+"`.`order` ( `User_Id`, `Order_Date`, `Tax`, `Shipping`, `Subtotal`, `Total`, `IsCheckout`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
             //pstmt.setInt(1, order.getId());
             pstmt.setInt(1, order.getUserId());
-            pstmt.setDate(2, order.getOrderDate());
+            pstmt.setDate(2, Date.valueOf(order.getOrderDate()));
             pstmt.setFloat(3, order.getTax());
             pstmt.setFloat(4, order.getShipping());
             pstmt.setFloat(5, order.getSubtotal());
@@ -111,7 +108,7 @@ public class DataAccessManager {
             List<OrderLine> lines = order.getOrderLines();
             for (int i = 0; i < lines.size() ; i++) {
                 OrderLine line = lines.get(i);
-                PreparedStatement p = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)");
+                PreparedStatement p = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 //pstmt.setInt(1, order.getId());
                 p.setInt(1, orderId);
                 p.setInt(2, line.getProductId());

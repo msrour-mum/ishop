@@ -1,14 +1,14 @@
 package edu.mum.ishop.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
 
 public class Order {
 
     private int id;
     private int userId;
-    private Date orderDate;
+    private LocalDate orderDate;
     private float tax;
     private float shipping;
     private float subtotal;
@@ -30,7 +30,7 @@ public class Order {
         this.tax = 2.25F;
         this.orderLines = new ArrayList<>();
     }
-    public Order(int id, int userId, Date orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
+    public Order(int id, int userId, LocalDate orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
         this.id = id;
         this.userId = userId;
         this.orderDate = orderDate;
@@ -58,11 +58,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

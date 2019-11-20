@@ -40,7 +40,10 @@ public class CheckoutServlet extends HttpServlet {
         if(req.getSession().getAttribute(AttributeName.userSession) == null)
             resp.sendRedirect("/login");
         else {
+            UserData userData = (UserData)req.getSession().getAttribute(AttributeName.userSession);
             Order order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
+            ordersService.checkout(order, userData.getUserId());
+
         }
     }
 }
