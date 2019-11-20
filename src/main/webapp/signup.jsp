@@ -5,8 +5,9 @@
   Time: 1:02 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,8 @@
                         </div>
                         <div class="form-group row">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" title="Enter Email"
+                            <input type="email" class="form-control" id="email" name="email"
+
                                    required>
                         </div>
                         <div class="form-group row">
@@ -56,13 +58,16 @@
                         <div class="form-group row">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password"
-                                   title="Enter Password" required>
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                   required>
                         </div>
 
                         <div class="form-group row">
                             <label for="repassword">Reeter Password</label>
                             <input type="password" class="form-control" id="repassword" name="repassword"
                                    title="Enter Password" required>
+                            <span id='message'></span>
                         </div>
 
 
@@ -74,6 +79,13 @@
     </div>
 </section>
 <%@ include file="footer.jsp"%>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/app.js">
+
+
+
+
+</script>
 </body>
 
 </html>

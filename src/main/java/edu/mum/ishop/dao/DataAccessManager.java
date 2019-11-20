@@ -37,10 +37,13 @@ public class DataAccessManager {
 
     public List<Order> Order_SelectAll() {
         List<Order> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.order order by id");
-            ResultSet rs = pstmt.executeQuery();
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.order order by id");
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 int id= rs.getInt("Id");
                 int userId= rs.getInt("userId");
@@ -56,13 +59,33 @@ public class DataAccessManager {
         } catch (SQLException e) {
             System.err.println(e);
         }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return list;
     }
     public boolean Order_Add(Order order) {
+
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        //ResultSet rs=null;
+        //ResultSet generatedKeys=null;
         try {
-            Connection connection = dataSource.getConnection();
+            connection = dataSource.getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement pstmt = connection.prepareStatement(" INSERT INTO `"+dbName+"`.`order` ( `User_Id`, `Order_Date`, `Tax`, `Shipping`, `Subtotal`, `Total`, `IsCheckout`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
+            pstmt = connection.prepareStatement(" INSERT INTO `"+dbName+"`.`order` ( `User_Id`, `Order_Date`, `Tax`, `Shipping`, `Subtotal`, `Total`, `IsCheckout`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
             //pstmt.setInt(1, order.getId());
             pstmt.setInt(1, order.getUserId());
             pstmt.setDate(2, order.getOrderDate());
@@ -81,6 +104,8 @@ public class DataAccessManager {
                 else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }
+                if(generatedKeys!=null)
+                    generatedKeys.close();
             }
 
             List<OrderLine> lines = order.getOrderLines();
@@ -103,15 +128,33 @@ public class DataAccessManager {
             System.err.println(e);
             return false;
         }
+        finally {
+            try
+            {
+//                if (rs!=null)
+//                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return true;
     }
 
     public List<OrderLine> OrderLine_SelectAll() {
         List<OrderLine> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.OrderLine order by id");
-            ResultSet rs = pstmt.executeQuery();
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.OrderLine order by id");
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 int id= rs.getInt("Id");
                 int orderId= rs.getInt("Order_Id");
@@ -126,12 +169,32 @@ public class DataAccessManager {
         } catch (SQLException e) {
             System.err.println(e);
         }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return list;
     }
     public boolean OrderLine_Add(OrderLine order) {
+
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+
+
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)");
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)");
             //pstmt.setInt(1, order.getId());
             pstmt.setInt(1, order.getOrderId());
             pstmt.setInt(2, order.getProductId());
@@ -142,16 +205,32 @@ public class DataAccessManager {
         } catch (SQLException e) {
             System.err.println(e);
             return false;
+        }finally {
+            try
+            {
+
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
         }
         return true;
     }
 
     public List<Product> Product_SelectAll() {
         List<Product> list = new ArrayList<>();
+        Connection connection=null;
+        ResultSet rs=null;
+        PreparedStatement pstmt=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product order by id");
-            ResultSet rs = pstmt.executeQuery();
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product order by id");
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 int id= rs.getInt("Id");
                 String productName= rs.getString("Product_Name");
@@ -163,20 +242,38 @@ public class DataAccessManager {
 
                 Product data = new Product(id,productName,description,seller,price,isActive,imageUrl);
                 list.add(data);
+
             }
         } catch (SQLException e) {
             System.err.println(e);
         }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return list;
     }
-
     public Product Product_SelectOne(int productId) {
         Product product = null;
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product where id=?");
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product where id=?");
             pstmt.setInt(1, productId);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 product=new Product(
                     rs.getInt("Id"),
@@ -192,40 +289,82 @@ public class DataAccessManager {
         } catch (SQLException e) {
             System.err.println(e);
         }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        return null;
+    }
+    public List<Product> Product_Search(String q) {
+        List<Product> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        try {
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product where Product_Name like ? or Description like ?");
+            pstmt.setString(1, "%"+q+"%");
+            pstmt.setString(2, "%"+q+"%");
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int id= rs.getInt("Id");
+                String productName= rs.getString("Product_Name");
+                String description= rs.getString("Description");
+                String seller= rs.getString("Seller");
+                float price= rs.getFloat("Price");
+                boolean isActive= rs.getBoolean("IsActive");
+                String imageUrl= rs.getString("Image_Url");
+
+                Product data = new Product(id,productName,description,seller,price,isActive,imageUrl);
+                list.add(data);
+
+            }
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return null;
     }
 
-   /* public boolean Product_Add(Product order) {
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`product` ( `Product_Name`, `Description`, `Seller`, `Price`, `IsActive`, `Image_Url`) VALUES ( '?', '?', '?', ?, ?, '?');");
-            //pstmt.setInt(1, order.getId());
 
-
-            pstmt.setString(1,order.getProductName());
-            pstmt.setString(2,order.getDescription());
-            pstmt.setString(3,order.getSeller());
-            pstmt.setFloat(4,order.getPrice());
-            pstmt.setBoolean(5,order.isActive());
-            pstmt.setString(6,order.getImageUrl());
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println(e);
-            return false;
-        }
-        return true;
-    }
-*/
 
 
 
     public List<User> User_SelectAll() {
         List<User> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User order by id");
-            ResultSet rs = pstmt.executeQuery();
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User order by id");
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 int id= rs.getInt("Id");
                 String userName= rs.getString("User_Name");
@@ -240,12 +379,30 @@ public class DataAccessManager {
         } catch (SQLException e) {
             System.err.println(e);
         }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return list;
     }
     public boolean User_Add(User order) {
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`user` ( `User_Name`, `Email`, `Address`, `Password`, `IsAdmin`) VALUES ( ?, ?, ?, ?, ?)");
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("INSERT INTO `"+dbName+"`.`user` ( `User_Name`, `Email`, `Address`, `Password`, `IsAdmin`) VALUES ( ?, ?, ?, ?, ?)");
             //pstmt.setInt(1, order.getId());
             //pstmt.setInt(1, order.getId());
             pstmt.setString(1, order.getUserName());
@@ -258,6 +415,20 @@ public class DataAccessManager {
             System.err.println(e);
             return false;
         }
+        finally {
+            try
+            {
+
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
         return true;
     }
 
@@ -265,11 +436,14 @@ public class DataAccessManager {
 
     public User User_Login(String email) {
         User user =null ;
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where Email=?");
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.User Where Email=?");
             pstmt.setString(1, email);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             while(rs.next()) {
                 user=new User();
                 user.setId( rs.getInt("Id"));
@@ -282,6 +456,21 @@ public class DataAccessManager {
             }
         } catch (SQLException e) {
             System.err.println(e);
+        }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
         }
         return null;
     }
