@@ -10,6 +10,6 @@
             driverClassName="com.mysql.cj.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/ishop-db"
             username="root"
-            password="sasa"
+            password="root"
     />
 </Context>

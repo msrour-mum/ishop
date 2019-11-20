@@ -29,6 +29,17 @@ public class OrdersService {
         else {
             orderToAddOrEdit.get().setQuantity(orderLine.getQuantity());
         }
+
+        float subTotal = (float) order
+                .getOrderLines()
+                .stream()
+                .mapToDouble(ol -> ol.getQuantity() * ol.getUnitPrice())
+                .sum();
+
+        order.setSubtotal(subTotal);
+
+        float total = subTotal + order.getShipping() + order.getTax();
+        order.setTotal(total);
     }
     public boolean Checkout(Order order, UserData userData)
     {

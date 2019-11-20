@@ -35,7 +35,7 @@
                             <div class="float-left">PRICE: 200.00$</div>
                             <div class="float-right add-cart">
                                 <button type="submit" class="btn btn-primary btn-add-cart">
-                                <i class="fas fa-cart-plus icon-large"></i>
+                                <i class="fas fa-cart-plus fa-2x"></i>
                             </button>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                             <div class="float-left">PRICE: 10.00$</div>
                             <div class="float-right add-cart">
                                 <button type="button" class="btn btn-primary btn-add-cart">
-                                    <i class="fas fa-cart-plus icon-large"></i>
+                                    <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
                         </div>

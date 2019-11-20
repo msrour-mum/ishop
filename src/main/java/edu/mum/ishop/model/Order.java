@@ -20,10 +20,14 @@ public class Order {
     public Order()
     {
         List<OrderLine> orderLines = new ArrayList<>();
+        this.shipping = 1.25F;
+        this.tax = 2.25F;
     }
     public Order(int userId)
     {
         this.userId = userId;
+        this.shipping = 1.25F;
+        this.tax = 2.25F;
     }
     public Order(int id, int userId, Date orderDate, float tax, float shipping, float subtotal, float total, boolean isCheckout) {
         this.id = id;
