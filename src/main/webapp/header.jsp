@@ -9,23 +9,47 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
             </li>
+            <c:if test="${userData!=null && userData.isAdmin==true}">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="orders">Orders</a>
+                </li>
+            </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
+                <a class="nav-link" href="#">|</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Orders</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
+
+            <c:if test="${userData!=null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hello "${userData.userName}"</a>
+
+                </li>
+
+            </c:if>
+
+            <c:if test="${userData==null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            </c:if>
+
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
         <span class="price" style="font-size:24px;color:yellow;margin-left: 1em;">
-            <i class="fa fa-shopping-cart"></i>
+       <a href="/cart">     <i class="fa fa-shopping-cart"></i>
             <b>4</b>
+           </a>
         </span>
     </div>
 </nav>

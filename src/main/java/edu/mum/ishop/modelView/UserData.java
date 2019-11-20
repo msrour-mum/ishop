@@ -54,7 +54,7 @@ public class UserData {
         this.loginTime = loginTime;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 

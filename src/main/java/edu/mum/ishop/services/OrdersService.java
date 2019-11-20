@@ -4,12 +4,15 @@ import edu.mum.ishop.dao.DataAccessManager;
 import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
+
+import edu.mum.ishop.modelView.OrderView;
 import edu.mum.ishop.model.Product;
 import edu.mum.ishop.modelView.UserData;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class OrdersService {
@@ -69,5 +72,12 @@ public class OrdersService {
        order.setCheckout(true);
        order.setOrderDate(LocalDate.now());
        return dataAccess.Order_Add(order);
+    }
+
+
+    public List<OrderView> getAllOrders()
+    {
+        List<OrderView> orders = dataAccess.OrderView_SelectAll();
+        return orders;
     }
 }
