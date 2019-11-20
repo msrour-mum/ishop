@@ -2,10 +2,12 @@ package edu.mum.ishop.sevlets;
 
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
+import edu.mum.ishop.model.Product;
 import edu.mum.ishop.modelView.UserData;
 import edu.mum.ishop.services.AuthenticationService;
 import edu.mum.ishop.services.OrdersService;
 import edu.mum.ishop.services.ProductsService;
+import edu.mum.ishop.util.AttributeName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +21,14 @@ public class CartServlet extends HttpServlet {
 
     private OrdersService ordersService;
     private AuthenticationService authenticationService;
+    private ProductsService productsService;
 
     @Override
     public void init() throws ServletException {
 
         ordersService = new OrdersService();
         authenticationService = new AuthenticationService();
+        productsService = new ProductsService();
     }
 
     @Override
@@ -39,7 +43,7 @@ public class CartServlet extends HttpServlet {
         UserData userData = req.getSession().getAttribute("user-data") != null ?
                 (UserData) req.getSession().getAttribute("user-data") : null;
 
-        if(req.getSession().getAttribute("cart") != null)
+        if(req.getSession().getAttribute(AttributeName.cartSession) != null)
         {
             //User Logged in & Cart is empty.
             if(userData != null)
@@ -53,7 +57,7 @@ public class CartServlet extends HttpServlet {
         } // Cart is not empty
         else
         {
-            order = (Order)req.getSession().getAttribute("cart");
+            order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
             //Check if user is logged in (exists)
             if(userData != null) //logged in user
             {
@@ -62,19 +66,15 @@ public class CartServlet extends HttpServlet {
         }
 
         if(req.getParameter("productId") != null) {
-
-            //get order
             //get product details
-            // then create orderline
+            Product product = productsService.getProduct(Integer.parseInt(req.getParameter("productId")));
             OrderLine orderLine = new OrderLine(Integer.parseInt(req.getParameter("id")),
-                    Integer.parseInt(req.getParameter("orderId")),
-                    Integer.parseInt(req.getParameter("productId")),
-                    Float.parseFloat(req.getParameter("unitPrice")),
-                    Integer.parseInt(req.getParameter("quantity")));
-
-
+                    order.getId(),
+                    product.getId(),
+                    product.getPrice(),
+                    1);
             ordersService.addOrderLine(order, orderLine);
-            req.getSession().setAttribute("cart", order);
+            req.getSession().setAttribute(AttributeName.cartSession, order);
         }
         req.getRequestDispatcher("/cart.jsp").forward(req, resp);
     }

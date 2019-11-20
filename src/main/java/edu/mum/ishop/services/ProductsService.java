@@ -6,13 +6,14 @@ import edu.mum.ishop.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductsService {
 
-    private UsersDAO dataAccess;
+    private DataAccessManager dataAccess;
 
     public ProductsService() {
-        this.dataAccess = new UsersDAO();
+        this.dataAccess = new DataAccessManager();
     }
 
     public List<Product> getProducts(String search)
@@ -30,20 +31,23 @@ public class ProductsService {
 
         return products;
     }
-
-
     public List<Product> getAllProducts()
     {
-
-        DataAccessManager da=new DataAccessManager();
-        List<Product> products =da.Product_SelectAll();
+        List<Product> products = dataAccess.Product_SelectAll();
         return products;
+    }
+    public Product getProduct(int id)
+    {
+        Optional<Product> product = dataAccess.Product_SelectAll()
+                .stream()
+                .filter(p -> p.getId() == id)
+                .findFirst();
+        return product.isEmpty() ? null : product.get();
     }
 
     public List<Product> searchProducts(String search)
     {
-        List<Product> products = new ArrayList<>();
-
+        List<Product> products = dataAccess.Product_SelectAll();
         return products;
     }
 }

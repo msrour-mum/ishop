@@ -2,6 +2,7 @@ package edu.mum.ishop.sevlets;
 
 import edu.mum.ishop.model.Product;
 import edu.mum.ishop.services.ProductsService;
+import edu.mum.ishop.util.AttributeName;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class HomeServlet extends HttpServlet {
 
         String search = req.getParameter("search");
         List<Product> products = productsService.getProducts(search);
-        req.setAttribute("products", products);
+        req.setAttribute(AttributeName.products, products);
         req.getRequestDispatcher("/home.jsp").forward(req, resp);
     }
 }
