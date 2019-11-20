@@ -266,7 +266,6 @@ public class DataAccessManager {
         }
         return list;
     }
-
     public Product Product_SelectOne(int productId) {
         Product product = null;
         Connection connection=null;
@@ -288,6 +287,51 @@ public class DataAccessManager {
                     rs.getString("Image_Url"));
                 return product;
             }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        finally {
+            try
+            {
+                if (rs!=null)
+                    rs.close();
+                if (connection!=null)
+                    connection.close();
+                if (pstmt!=null)
+                    pstmt.close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        return null;
+    }
+    public List<Product> Product_Search(String q) {
+        List<Product> list = new ArrayList<>();
+        Connection connection=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        try {
+            connection = dataSource.getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product where Product_Name like ? or Description like ?");
+            pstmt.setString(1, "%"+q+"%");
+            pstmt.setString(2, "%"+q+"%");
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                int id= rs.getInt("Id");
+                String productName= rs.getString("Product_Name");
+                String description= rs.getString("Description");
+                String seller= rs.getString("Seller");
+                float price= rs.getFloat("Price");
+                boolean isActive= rs.getBoolean("IsActive");
+                String imageUrl= rs.getString("Image_Url");
+
+                Product data = new Product(id,productName,description,seller,price,isActive,imageUrl);
+                list.add(data);
+
+            }
+            return list;
         } catch (SQLException e) {
             System.err.println(e);
         }
