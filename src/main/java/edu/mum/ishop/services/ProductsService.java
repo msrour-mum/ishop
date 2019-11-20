@@ -1,5 +1,6 @@
 package edu.mum.ishop.services;
 
+import edu.mum.ishop.dao.DataAccessManager;
 import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Product;
 
@@ -33,8 +34,9 @@ public class ProductsService {
 
     public List<Product> getAllProducts()
     {
-        List<Product> products = new ArrayList<>();
 
+        DataAccessManager da=new DataAccessManager();
+        List<Product> products =da.Product_SelectAll();
         return products;
     }
 
