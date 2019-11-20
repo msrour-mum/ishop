@@ -1,12 +1,9 @@
 package edu.mum.ishop.services;
 
 import edu.mum.ishop.dao.DataAccessManager;
-import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ProductsService {
 

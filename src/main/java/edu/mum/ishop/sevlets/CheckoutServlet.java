@@ -1,9 +1,7 @@
 package edu.mum.ishop.sevlets;
 
 import edu.mum.ishop.model.Order;
-import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.modelView.UserData;
-import edu.mum.ishop.services.AuthenticationService;
 import edu.mum.ishop.services.OrdersService;
 import edu.mum.ishop.util.AttributeName;
 

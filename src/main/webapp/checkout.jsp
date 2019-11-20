@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IShop - Cart</title>
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
-    <link href="css/all.css" type="text/css" rel="stylesheet"/>
     <link href="css/fontawesome.css" type="text/css" rel="stylesheet"/>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
 </head>
@@ -59,9 +58,9 @@
                 <div class="form-group">
                     <label for="name">Phone Number</label>
                     <input type="text" class="form-control" id="phoneNumber"
-                           pattern="+1 (\d{3})-\d{3}-\d{4}"
+                           pattern="\+1 \(\d{3}\) \d{3}-\d{4}"
                            placeholder="+1 (xxx)-xxx-xxxx"
-                           title="Invalid phone number, it should be matched with this format: +1 (xxx)-xxx-xxxx"
+                           title="Invalid phone number, it should be matched with this format: +1 (xxx) xxx-xxxx"
                     />
                 </div>
 

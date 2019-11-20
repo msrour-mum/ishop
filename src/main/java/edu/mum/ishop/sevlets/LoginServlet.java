@@ -49,12 +49,11 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setAttribute(AttributeName.returnUrlSession, null);
                 resp.sendRedirect(returnUrl);
             }
-
         }
         else
         {
             req.setAttribute("isError",true);
-            req.setAttribute("errMsg","Invaild UserName and password");
+            req.setAttribute("errMsg","Invalid UserName and password");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
