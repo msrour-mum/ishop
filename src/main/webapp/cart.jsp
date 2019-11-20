@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,80 +21,29 @@
         <div class="col-sm-12 col-md-8 order-line-box">
 
             <!-- incase no items-->
-            <div class="card bg-light mb-3">
-                <div class="card-header">Information</div>
-                <div class="card-body">
-                    <h4 class="card-title">Empty Cart</h4>
-                    <p class="card-text">There are no products found in your card, please continue shopping then add your products to the cart.</p>
 
-                    <div><a class="btn btn-primary" href="/home"> Continue Shopping</a></div>
-                </div>
-            </div>
 
-            <!--else-->
-            <div class="card border-info mb-3">
-                <div class="card-header row">
-                    <div class="col-4">
-                       <i class="prd-lbl">Price</i><i>15.55$</i>
-                    </div>
-                    <div class="col-6">
-                        <i class="prd-lbl">Quantity</i> <i>2</i>
-                    </div>
-                    <div class="col-2">
-                        <i class="prd-lbl">Sum</i> <i>30.00$</i>
-                    </div>
-                </div>
-                <div class="card-body row">
-                    <img src="imgs/p1.JPG" class="cart-prd-img col-3">
-                    <div class="col-9">
-                        <h4 class="card-title">Product Name</h4>
-                        <p class="card-text">Description Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
+            <%=session.getAttribute("cart")%>
+            <c:if test="${cart == null}">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Information</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Empty Cart</h4>
+                        <p class="card-text">There are no products found in your card, please continue shopping then add your products to the cart.</p>
 
-            <div class="card border-info mb-3">
-                <div class="card-header row">
-                    <div class="col-4">
-                        <i class="prd-lbl">Price</i><i>15.55$</i>
-                    </div>
-                    <div class="col-6">
-                        <i class="prd-lbl">Quantity</i> <i>2</i>
-                    </div>
-                    <div class="col-2">
-                        <i class="prd-lbl">Sum</i> <i>30.00$</i>
+                        <div><a class="btn btn-primary" href="/home"> Continue Shopping</a></div>
                     </div>
                 </div>
-                <div class="card-body row">
-                    <img src="imgs/p2.JPG" class="cart-prd-img col-3">
-                    <div class="col-9">
-                        <h4 class="card-title">Product Name</h4>
-                        <p class="card-text">Description Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
+            </c:if>
 
-            <div class="card border-info mb-3">
-                <div class="card-header row">
-                    <div class="col-4">
-                        <i class="prd-lbl">Price</i><i>15.55$</i>
-                    </div>
-                    <div class="col-6">
-                        <i class="prd-lbl">Quantity</i> <i>2</i>
-                    </div>
-                    <div class="col-2">
-                        <i class="prd-lbl">Sum</i> <i>30.00$</i>
-                    </div>
-                </div>
-                <div class="card-body row">
-                    <img src="imgs/p3.JPG" class="cart-prd-img col-3">
-                    <div class="col-9">
-                        <h4 class="card-title">Product Name</h4>
-                        <p class="card-text">Description Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-
+            <c:if test="${cart != null}">
+                <jsp:useBean id="cart" scope="request" type="java.util.List<edu.mum.ishop.model.Order>"/>
+            <c:forEach var="cartItem" items="${cart.orderLines}" >
+                <tr>
+                    <ct:product product= '${cartItem}'/>
+                </tr>
+            </c:forEach>
+            </c:if>
         </div>
 
         <div class="col-sm-12 col-md-4 order-summary-box jumbotron">

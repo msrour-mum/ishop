@@ -29,5 +29,18 @@
         </attribute>
 
     </tag>
-
+    <tag>
+        <name>cartIteme</name>
+        <tag-class>edu.mum.ishop.customTag.CartItemTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute >
+            <description>
+                cart item
+            </description>
+            <name>cartItem</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>edu.mum.ishop.model.OrderLine</type>
+        </attribute>
+    </tag>
 </taglib>

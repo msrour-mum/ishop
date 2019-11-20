@@ -171,6 +171,31 @@ public class DataAccessManager {
         }
         return list;
     }
+
+    public Product Product_SelectOne(int productId) {
+        Product product = null;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM `"+dbName+"`.Product where id=?");
+            pstmt.setInt(1, productId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                product=new Product(
+                    rs.getInt("Id"),
+                    rs.getString("Product_Name"),
+                    rs.getString("Description"),
+                    rs.getString("Seller"),
+                    rs.getFloat("Price"),
+                    rs.getBoolean("IsActive"),
+                    rs.getString("Image_Url"));
+                return product;
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return null;
+    }
+
    /* public boolean Product_Add(Product order) {
         try {
             Connection connection = dataSource.getConnection();
