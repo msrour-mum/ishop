@@ -59,7 +59,7 @@
                     <label for="name">Phone Number</label>
                     <input type="text" class="form-control" id="phoneNumber"
                            pattern="\+1 \(\d{3}\) \d{3}-\d{4}"
-                           placeholder="+1 (xxx)-xxx-xxxx"
+                           placeholder="+1 (xxx) xxx-xxxx"
                            title="Invalid phone number, it should be matched with this format: +1 (xxx) xxx-xxxx"
                     />
                 </div>
