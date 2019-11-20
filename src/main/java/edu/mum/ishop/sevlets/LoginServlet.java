@@ -5,11 +5,13 @@ import edu.mum.ishop.model.User;
 import edu.mum.ishop.modelView.UserData;
 import edu.mum.ishop.services.ProductsService;
 import edu.mum.ishop.services.UsersService;
+import edu.mum.ishop.util.AttributeName;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,9 +38,9 @@ public class LoginServlet extends HttpServlet {
 
         String inputEmail=req.getParameter("inputEmail");
         String pass=req.getParameter("inputPassword");
-        UserData user=UsersService.login(inputEmail,pass);
+        UserData user = UsersService.login(inputEmail,pass);
         if (user!=null) {
-            req.getSession().setAttribute("user",user);
+            req.getSession().setAttribute(AttributeName.userSession,user);
             resp.sendRedirect("/home");
         }
         else

@@ -5,6 +5,7 @@ import edu.mum.ishop.model.OrderLine;
 import edu.mum.ishop.modelView.UserData;
 import edu.mum.ishop.services.AuthenticationService;
 import edu.mum.ishop.services.OrdersService;
+import edu.mum.ishop.util.AttributeName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,12 +29,18 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.getRequestDispatcher("/checkout.jsp").forward(req, resp);
+        if(req.getSession().getAttribute(AttributeName.userSession) == null)
+            resp.sendRedirect("/login");
+        else
+            req.getRequestDispatcher("/checkout.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Order order = (Order)req.getSession().getAttribute("cart");
-
+        if(req.getSession().getAttribute(AttributeName.userSession) == null)
+            resp.sendRedirect("/login");
+        else {
+            Order order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
+        }
     }
 }

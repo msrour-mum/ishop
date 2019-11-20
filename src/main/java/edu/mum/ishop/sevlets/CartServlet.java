@@ -39,38 +39,56 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Order order;
-        UserData userData = req.getSession().getAttribute("user-data") != null ?
-                (UserData) req.getSession().getAttribute("user-data") : null;
+        Order order = getOrder(req);
+        createOrderOnline(req, order);
 
-        if(req.getSession().getAttribute(AttributeName.cartSession) == null)
-        {
-            //Cart is empty.
-            if(userData != null)
-            {
-                //User Logged in & cart is not empty
-               order = ordersService.createOrder(userData.getUserId());
-            }
-            else //Guest User and cart is empty;
-            {
-                order = ordersService.createOrder(0);
-            }
-        } // Cart is not empty
-        else
-        {
-            order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
-            //Check if user is logged in (exists)
-            if(userData != null) //logged in user
-            {
-                order.setUserId(userData.getUserId());
-            }
-        }
+        req.getRequestDispatcher("/cart.jsp").forward(req, resp);
+//        UserData userData = req.getSession().getAttribute(AttributeName.userSession) != null ?
+//                (UserData) req.getSession().getAttribute(AttributeName.userSession) : null;
+//
+//        if(req.getSession().getAttribute(AttributeName.cartSession) == null)
+//        {
+//            //Cart is empty.
+//            if(userData != null)
+//            {
+//                //User Logged in & cart is not empty
+//               order = ordersService.createOrder(userData.getUserId());
+//            }
+//            else //Guest User and cart is empty;
+//            {
+//                order = ordersService.createOrder(0);
+//            }
+//        } // Cart is not empty
+//        else
+//        {
+//            order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
+//            //Check if user is logged in (exists)
+//            if(userData != null) //logged in user
+//            {
+//                order.setUserId(userData.getUserId());
+//            }
+//        }
+//
+//        if(req.getParameter("productId") != null) {
+//            int productId = Integer.parseInt(req.getParameter("productId"));
+//            ordersService.addOrderLine(order, productId);
+//            req.getSession().setAttribute(AttributeName.cartSession, order);
+//        }
+//        req.getRequestDispatcher("/cart.jsp").forward(req, resp);
+    }
 
+    private void createOrderOnline(HttpServletRequest req, Order order) {
         if(req.getParameter("productId") != null) {
             int productId = Integer.parseInt(req.getParameter("productId"));
             ordersService.addOrderLine(order, productId);
             req.getSession().setAttribute(AttributeName.cartSession, order);
         }
-        req.getRequestDispatcher("/cart.jsp").forward(req, resp);
+    }
+
+    private Order getOrder(HttpServletRequest req) {
+        Order order;
+        if (req.getSession().getAttribute(AttributeName.cartSession) == null) order = ordersService.createOrder(0);
+        else order = (Order) req.getSession().getAttribute(AttributeName.cartSession);
+        return order;
     }
 }
