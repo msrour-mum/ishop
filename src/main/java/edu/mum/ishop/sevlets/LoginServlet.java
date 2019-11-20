@@ -41,7 +41,15 @@ public class LoginServlet extends HttpServlet {
         UserData user = UsersService.login(inputEmail,pass);
         if (user!=null) {
             req.getSession().setAttribute(AttributeName.userSession,user);
-            resp.sendRedirect("/home");
+
+            if(req.getSession().getAttribute(AttributeName.returnUrlSession) == null)
+                resp.sendRedirect("/home");
+            else {
+                String returnUrl = (String) req.getSession().getAttribute(AttributeName.returnUrlSession);
+                req.getSession().setAttribute(AttributeName.returnUrlSession, null);
+                resp.sendRedirect(returnUrl);
+            }
+
         }
         else
         {

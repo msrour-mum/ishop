@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lab13 - Introduction to Java Server Pages</title>
+    <title>IShop - SignUp</title>
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
     <script src="js/app.js"></script>
 </head>

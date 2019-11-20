@@ -17,33 +17,41 @@ import java.io.IOException;
 @WebServlet(name="checkout", urlPatterns = "/checkout")
 public class CheckoutServlet extends HttpServlet {
     private OrdersService ordersService;
-    private AuthenticationService authenticationService;
 
     @Override
     public void init() throws ServletException {
 
         ordersService = new OrdersService();
-        authenticationService = new AuthenticationService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if(req.getSession().getAttribute(AttributeName.userSession) == null)
-            resp.sendRedirect("/login");
+            RedirectToLogin(req, resp, "/checkout");
         else
             req.getRequestDispatcher("/checkout.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute(AttributeName.userSession) == null)
-            resp.sendRedirect("/login");
+        if(req.getSession().getAttribute(AttributeName.userSession) == null) {
+            RedirectToLogin(req, resp, "/checkout");
+        }
         else {
             UserData userData = (UserData)req.getSession().getAttribute(AttributeName.userSession);
             Order order = (Order)req.getSession().getAttribute(AttributeName.cartSession);
-            ordersService.checkout(order, userData.getUserId());
-
+            boolean success = ordersService.checkout(order, userData.getUserId());
+            if(success)
+            {
+                req.getSession().setAttribute(AttributeName.cartSession, null);
+                resp.sendRedirect("/thank-you");
+            }
         }
+    }
+
+    private void RedirectToLogin(HttpServletRequest req, HttpServletResponse resp, String returnUrl) throws IOException {
+        req.getSession().setAttribute(AttributeName.returnUrlSession, returnUrl);
+        resp.sendRedirect("/login");
     }
 }

@@ -82,7 +82,7 @@ public class DataAccessManager {
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
-            pstmt = connection.prepareStatement(" INSERT INTO `"+dbName+"`.`order` ( `User_Id`, `Order_Date`, `Tax`, `Shipping`, `Subtotal`, `Total`, `IsCheckout`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
+            pstmt = connection.prepareStatement(" INSERT INTO `"+dbName+"`.`order` ( `User_Id`, `Order_Date`, `Tax`, `Shipping`, `Subtotal`, `Total`, `IsCheckout`) VALUES ( ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             //pstmt.setInt(1, order.getId());
             pstmt.setInt(1, order.getUserId());
             pstmt.setDate(2, Date.valueOf(order.getOrderDate()));
@@ -108,7 +108,7 @@ public class DataAccessManager {
             List<OrderLine> lines = order.getOrderLines();
             for (int i = 0; i < lines.size() ; i++) {
                 OrderLine line = lines.get(i);
-                PreparedStatement p = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement p = connection.prepareStatement("INSERT INTO `"+dbName+"`.`order_line` ( `Order_Id`, `Product_Id`, `Unit_Price`, `Quantity`, `Subtotal`) VALUES ( ?, ?, ?, ?, ?)");
                 //pstmt.setInt(1, order.getId());
                 p.setInt(1, orderId);
                 p.setInt(2, line.getProductId());
