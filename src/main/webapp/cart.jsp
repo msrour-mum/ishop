@@ -51,6 +51,29 @@
                                 <h4 class="card-title">${cartItem.product.productName}</h4>
                                 <p class="card-text">${cartItem.product.description}</p>
                             </div>
+                            <div class="order-line-cmd row">
+                                <div class="prodcut-cmd-icon ">
+                                    <form method="post" action="/cart">
+                                        <input type="hidden" value="remove" name="addItem" id="addItem"/>
+                                        <input type="hidden" value="${cartItem.product.id}" name="productId"
+                                               id="addItemProductId"/>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="prodcut-cmd-icon ">
+                                    <form method="post" action="/cart">
+                                        <input type="hidden" value="remove" name="removeItem" id="removeItem"/>
+                                        <input type="hidden" value="${cartItem.product.id}" name="productId"
+                                               id="removeItemProductId"/>
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>

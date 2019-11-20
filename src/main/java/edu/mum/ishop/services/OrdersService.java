@@ -62,6 +62,39 @@ public class OrdersService {
         float total = subTotal + order.getShipping() + order.getTax();
         order.setTotal(total);
     }
+
+    public void removeOrderLine(Order order, int productId)
+    {
+        Product product = productsService.getProduct(productId);
+
+        Optional<OrderLine> optionalOrderLine = order.getOrderLines()
+                .stream()
+                .filter(ol -> ol.getProduct().getId() == product.getId())
+                .findFirst();
+
+        if(optionalOrderLine.isPresent()){
+            OrderLine oderLineToRemove = optionalOrderLine.get();
+            oderLineToRemove.setQuantity(oderLineToRemove.getQuantity() - 1);
+            oderLineToRemove.setSubtotal(oderLineToRemove.getQuantity() * oderLineToRemove.getUnitPrice());
+
+            if(oderLineToRemove.getQuantity() <= 0) {
+
+                order.getOrderLines().remove(oderLineToRemove);
+            }
+        }
+
+        float subTotal = (float) order
+                .getOrderLines()
+                .stream()
+                .mapToDouble(ol -> ol.getQuantity() * ol.getUnitPrice())
+                .sum();
+
+        order.setSubtotal(subTotal);
+
+        float total = subTotal + order.getShipping() + order.getTax();
+        order.setTotal(total);
+    }
+
     public boolean checkout(Order order, int userId)
     {
         order.setUserId(userId);

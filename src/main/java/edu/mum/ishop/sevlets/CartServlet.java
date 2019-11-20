@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="Cart", urlPatterns = "/cart")
+@WebServlet(name = "Cart", urlPatterns = "/cart")
 public class CartServlet extends HttpServlet {
 
     private OrdersService ordersService;
@@ -35,15 +35,24 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Order order = getOrder(req);
-        createOrderOnline(req, order);
-        req.getRequestDispatcher("/cart.jsp").forward(req,resp);
+        createRemoveOrderOnline(req, order);
+        req.getRequestDispatcher("/cart.jsp").forward(req, resp);
     }
 
-    private void createOrderOnline(HttpServletRequest req, Order order) {
-        if(req.getParameter("productId") != null) {
+    private void createRemoveOrderOnline(HttpServletRequest req, Order order) {
+        if (req.getParameter("productId") != null) {
+
             int productId = Integer.parseInt(req.getParameter("productId"));
-            ordersService.addOrderLine(order, productId);
-            req.getSession().setAttribute(AttributeName.cartSession, order);
+            if (req.getParameter("removeItem") != null &&
+                    req.getParameter("removeItem").equals("remove")) {
+                ordersService.removeOrderLine(order, productId);
+                if (order.getOrderLines().size() == 0) {
+                    req.getSession().setAttribute(AttributeName.cartSession, null);
+                }
+            } else {
+                ordersService.addOrderLine(order, productId);
+                req.getSession().setAttribute(AttributeName.cartSession, order);
+            }
         }
     }
 
