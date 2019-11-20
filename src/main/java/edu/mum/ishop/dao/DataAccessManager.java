@@ -72,8 +72,6 @@ public class DataAccessManager {
             pstmt.setFloat(6, order.getTotal());
             pstmt.setBoolean(7, order.isCheckout());
             pstmt.executeUpdate();
-
-
             int orderId =0;
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -188,8 +186,9 @@ public class DataAccessManager {
                     rs.getFloat("Price"),
                     rs.getBoolean("IsActive"),
                     rs.getString("Image_Url"));
-                return product;
             }
+            connection.close();
+            return product;
         } catch (SQLException e) {
             System.err.println(e);
         }

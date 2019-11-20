@@ -3,11 +3,18 @@ package edu.mum.ishop.services;
 import edu.mum.ishop.dao.UsersDAO;
 import edu.mum.ishop.model.Order;
 import edu.mum.ishop.model.OrderLine;
+import edu.mum.ishop.model.Product;
 import edu.mum.ishop.modelView.UserData;
 
 import java.util.Optional;
 
 public class OrdersService {
+
+    private ProductsService productsService;
+    public OrdersService()
+    {
+        productsService = new ProductsService();
+    }
 
     public Order createOrder(int userId)
     {
@@ -16,18 +23,26 @@ public class OrdersService {
         return new Order(userId);
     }
 
-    public void addOrderLine(Order order, OrderLine orderLine)
+    public void addOrderLine(Order order, int productId)
     {
-        Optional<OrderLine> orderToAddOrEdit = order.getOrderLines()
+        Product product = productsService.getProduct(productId);
+
+        Optional<OrderLine> optionalOderLineToAddOrEdit = order.getOrderLines()
                 .stream()
-                .filter(ol -> ol.getId() == orderLine.getId())
+                .filter(ol -> ol.getProduct().getId() == product.getId())
                 .findFirst();
 
-        if(orderToAddOrEdit.isEmpty()) {
+        if(optionalOderLineToAddOrEdit.isEmpty()) {
+
+            OrderLine orderLine = new OrderLine(product.getId(),
+                    product.getPrice(),
+                    product);
             order.getOrderLines().add(orderLine);
         }
         else {
-            orderToAddOrEdit.get().setQuantity(orderLine.getQuantity());
+             OrderLine oderLineToAddOrEdit  = optionalOderLineToAddOrEdit.get();
+             oderLineToAddOrEdit.setQuantity(oderLineToAddOrEdit.getQuantity() + 1);
+             oderLineToAddOrEdit.setSubtotal(oderLineToAddOrEdit.getQuantity() * oderLineToAddOrEdit.getUnitPrice());
         }
 
         float subTotal = (float) order

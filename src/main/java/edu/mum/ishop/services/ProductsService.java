@@ -38,11 +38,8 @@ public class ProductsService {
     }
     public Product getProduct(int id)
     {
-        Optional<Product> product = dataAccess.Product_SelectAll()
-                .stream()
-                .filter(p -> p.getId() == id)
-                .findFirst();
-        return product.isEmpty() ? null : product.get();
+        Product product = dataAccess.Product_SelectOne(id);
+        return product;
     }
 
     public List<Product> searchProducts(String search)

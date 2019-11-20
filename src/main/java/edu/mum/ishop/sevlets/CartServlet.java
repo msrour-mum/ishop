@@ -20,15 +20,15 @@ import java.io.IOException;
 public class CartServlet extends HttpServlet {
 
     private OrdersService ordersService;
-    private AuthenticationService authenticationService;
-    private ProductsService productsService;
+//    private AuthenticationService authenticationService;
+//    private ProductsService productsService;
 
     @Override
     public void init() throws ServletException {
 
         ordersService = new OrdersService();
-        authenticationService = new AuthenticationService();
-        productsService = new ProductsService();
+//        authenticationService = new AuthenticationService();
+//        productsService = new ProductsService();
     }
 
     @Override
@@ -43,11 +43,12 @@ public class CartServlet extends HttpServlet {
         UserData userData = req.getSession().getAttribute("user-data") != null ?
                 (UserData) req.getSession().getAttribute("user-data") : null;
 
-        if(req.getSession().getAttribute(AttributeName.cartSession) != null)
+        if(req.getSession().getAttribute(AttributeName.cartSession) == null)
         {
-            //User Logged in & Cart is empty.
+            //Cart is empty.
             if(userData != null)
             {
+                //User Logged in & cart is not empty
                order = ordersService.createOrder(userData.getUserId());
             }
             else //Guest User and cart is empty;
@@ -66,14 +67,8 @@ public class CartServlet extends HttpServlet {
         }
 
         if(req.getParameter("productId") != null) {
-            //get product details
-            Product product = productsService.getProduct(Integer.parseInt(req.getParameter("productId")));
-            OrderLine orderLine = new OrderLine(Integer.parseInt(req.getParameter("id")),
-                    order.getId(),
-                    product.getId(),
-                    product.getPrice(),
-                    1);
-            ordersService.addOrderLine(order, orderLine);
+            int productId = Integer.parseInt(req.getParameter("productId"));
+            ordersService.addOrderLine(order, productId);
             req.getSession().setAttribute(AttributeName.cartSession, order);
         }
         req.getRequestDispatcher("/cart.jsp").forward(req, resp);

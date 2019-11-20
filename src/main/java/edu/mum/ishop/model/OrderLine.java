@@ -5,25 +5,30 @@ public class OrderLine {
     private int id;
     private int orderId;
     private int productId;
+    private Product product;
     private float unitPrice;
-    private int Quantity;
-    private float Subtotal;
+    private int quantity;
+    private float subtotal;
+
+    public OrderLine(){
+
+    }
 
     public OrderLine(int id, int orderId, int productId, float unitPrice, int quantity, float subtotal) {
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
         this.unitPrice = unitPrice;
-        Quantity = quantity;
-        Subtotal = subtotal;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
     }
-    public OrderLine(int id, int orderId, int productId, float unitPrice, int quantity) {
-        this.id = id;
-        this.orderId = orderId;
+
+    public OrderLine(int productId, float unitPrice, Product product) {
         this.productId = productId;
         this.unitPrice = unitPrice;
-        Quantity = quantity;
-        Subtotal = unitPrice * Quantity;
+        this.quantity = 1;
+        this.product = product;
+        this.subtotal = unitPrice * this.quantity;
     }
 
     public int getId() {
@@ -59,18 +64,26 @@ public class OrderLine {
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public float getSubtotal() {
-        return Subtotal;
+        return subtotal;
     }
 
     public void setSubtotal(float subtotal) {
-        Subtotal = subtotal;
+        this.subtotal = subtotal;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
