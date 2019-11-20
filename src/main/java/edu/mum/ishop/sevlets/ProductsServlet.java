@@ -20,15 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name ="orders", urlPatterns = "/orders")
-public class OrdersServlet extends HttpServlet {
+@WebServlet(name ="products", urlPatterns = "/products")
+public class ProductsServlet extends HttpServlet {
 
-    private edu.mum.ishop.services.OrdersService ordersService;
+    private edu.mum.ishop.services.ProductsService productsService;
 
     @Override
     public void init() throws ServletException {
 
-        ordersService = new OrdersService();
+        productsService = new ProductsService();
     }
 
     @Override
@@ -38,12 +38,12 @@ public class OrdersServlet extends HttpServlet {
                 (UserData) req.getSession().getAttribute(AttributeName.userSession) : null;
         if (userData==null || !userData.getIsAdmin())
         {
-            resp.sendRedirect("/login");
+            resp.sendRedirect("/products");
         }
         else {
-            List<OrderView> orders = ordersService.getAllOrders();
-            req.setAttribute("orders",orders);
-            req.getRequestDispatcher("/orders.jsp").forward(req, resp);
+            List<Product> orders = productsService.getAllProducts();
+            req.setAttribute("products",orders);
+            req.getRequestDispatcher("/products.jsp").forward(req, resp);
         }
     }
     @Override
