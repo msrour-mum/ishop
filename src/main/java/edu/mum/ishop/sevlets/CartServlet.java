@@ -61,13 +61,21 @@ public class CartServlet extends HttpServlet {
             }
         }
 
-        OrderLine orderLine = new OrderLine( Integer.parseInt(req.getParameter("id")),
-                Integer.parseInt(req.getParameter("orderId")),
-                Integer.parseInt(req.getParameter("productId")),
-                Float.parseFloat(req.getParameter("unitPrice")),
-                Integer.parseInt(req.getParameter("quantity")));
+        if(req.getParameter("productId") != null) {
 
-        ordersService.addOrderLine(order, orderLine);
-        req.getSession().setAttribute("cart", order);
+            //get order
+            //get product details
+            // then create orderline
+            OrderLine orderLine = new OrderLine(Integer.parseInt(req.getParameter("id")),
+                    Integer.parseInt(req.getParameter("orderId")),
+                    Integer.parseInt(req.getParameter("productId")),
+                    Float.parseFloat(req.getParameter("unitPrice")),
+                    Integer.parseInt(req.getParameter("quantity")));
+
+
+            ordersService.addOrderLine(order, orderLine);
+            req.getSession().setAttribute("cart", order);
+        }
+        req.getRequestDispatcher("/cart.jsp").forward(req, resp);
     }
 }
